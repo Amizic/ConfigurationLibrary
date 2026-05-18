@@ -1,5 +1,5 @@
 # Configuration Library
-Configuration library made for reading config.cfg file values, and storing them in memory.
+Configuration library made in C++, for reading config.cfg file values, and storing them in memory.
 
 ## Building the Library
 ### Static Build
