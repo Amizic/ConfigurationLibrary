@@ -19,4 +19,4 @@ if(BUILD_SHARED_LIBS)
 endif()
 
 # Optional: set C++ standard
-target_compile_features(config PUBLIC cxx_std_11)
+target_compile_features(config PUBLIC cxx_std_17)

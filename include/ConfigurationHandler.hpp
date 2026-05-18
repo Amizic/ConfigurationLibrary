@@ -1,7 +1,9 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
+#include <unordered_map>
+#include <optional>
+#include <vector>
 
 #if defined(CONFIGLIB_DYNAMIC)
     #if defined(CONFIGLIB_BUILD)
@@ -16,28 +18,39 @@
 class CONFIGLIB_API ConfigurationHandler
 {
 public:
-    ConfigurationHandler();
-    ~ConfigurationHandler();
+    ConfigurationHandler() = default;
+    ~ConfigurationHandler() = default;
 
+    // Load configuration from file
+    // Returns 0 on success, -1 if file cannot be opened
     int loadFromFile(const std::string& filePath);
-    const std::string& getHost() const;
-    std::uint16_t getPort() const;
-    const std::string& getCommPipeName() const;
-    const std::string& getMode() const;
     
-    private:
+    // Check if a key exists
+    bool keyExists(const std::string& key) const;
+    
+    // Get value by key (returns std::nullopt if key doesn't exist)
+    std::optional<std::string> getValue(const std::string& key) const;
+    
+    // Get value with default fallback
+    std::string getValue(const std::string& key, const std::string& defaultValue) const;
+    
+    // Get all key-value pairs
+    const std::unordered_map<std::string, std::string>& getAll() const;
+    
+    // Get all keys
+    std::vector<std::string> getAllKeys() const;
+    
+    // Get number of loaded configurations
+    size_t size() const;
+    
+    // Clear all configurations
+    void clear();
+    
+    // Manually set a key-value pair
+    void setValue(const std::string& key, const std::string& value);
+
+private:
     static void trim(std::string& str);
-    void parseLine(const std::string& line);
-    void resetFlags();
-
-    std::string   host;
-    std::uint16_t port;
-    std::string   comm;
-    std::string   usage;
     
-    bool hasHost;
-    bool hasPort;
-    bool hasComm;
-    bool hasUsage;
+    std::unordered_map<std::string, std::string> configMap;
 };
-
