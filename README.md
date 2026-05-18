@@ -1,16 +1,18 @@
 # ConfigurationLibrary
 Configuration library made for reading config.cfg file values, and storing them in memory.
 
-# Static Build
+# Building the Library
+## Static Build
 `cmake -B build_static -G "MinGW Makefiles"`
 `cmake --build build_static`
 
-# Dynamic Build
+## Dynamic Build
 -`cmake -B build_shared -G "MinGW Makefiles" -DBUILD_SHARED_LIBS=ON`
 -`cmake --build build_shared`
 
-# Static Library Test
+# Building Tests
+## Static Library Test
 -`g++ -std=c++11 tests/test_config.cpp -Iinclude -Lbuild_static -lconfig -o tests/test_config.exe`
 
-# Dynamic Library Test
+## Dynamic Library Test
 -`g++ -std=c++11 tests/test_config.cpp -Iinclude -DCONFIGLIB_DYNAMIC -Lbuild_shared -lconfig -o tests/test_config_dynamic.exe`
